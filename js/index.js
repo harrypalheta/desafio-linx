@@ -1,21 +1,49 @@
+//(function(){
+ 
+var data;
 
-// Exemplo de requisição GET
-var ajax = new XMLHttpRequest();
+var vitrine = document.getElementById("vitrine");
+var product = document.querySelectorAll("li");
+console.log(product);
 
-// Seta tipo de requisição e URL com os parâmetros
-ajax.open("GET", "http://localhost:9000/script.php", true);
+function X(val){
 
-// Envia a requisição
-ajax.send();
+    // Recommendation
+    val.data.recommendation.forEach(function(e,i){
+//        function createElement(tag, attr){
+//            var node = document.createElement(tag);
+//            var textnode = document.createTextNode(attr);
+//            node.appendChild(textnode);
+//
+//            return node;
+//        }
+//        
+        
+        if (!product[i]){
+            var original = product;
+            console.log(i);
+            var node = document.createElement(original);
+            var clone = original.cloneNode(true);
+            vitrine.appendChild(clone);
+            //console.log(original);
+        }
+    
+        // link    
+        product[i].getElementsByClassName('imagem')[0].getElementsByTagName('a')[0].setAttribute("href", "http:" + e.detailUrl);
+        // image
+        product[i].getElementsByClassName('imagem')[0].getElementsByTagName('a')[0].getElementsByTagName('img')[0].setAttribute("src", "http:" + e.imageName);
+        // name
+        product[i].getElementsByClassName('descricao')[0].append(e.name);
+        product[i].getElementsByClassName('preco')[0].append(e.price);
+        product[i].getElementsByClassName('precoVelho')[0].append(e.oldPrice);
+        product[i].getElementsByClassName('pagamento')[0].append(e.productInfo.paymentConditions);
 
-// Cria um evento para receber o retorno.
-ajax.onreadystatechange = function() {
-  // Caso o state seja 4 e o http.status for 200, é porque a requisiçõe deu certo.
-	if (ajax.readyState == 4 && ajax.status == 200) {
-		var data = ajax.responseText;
-    // Retorno do Ajax
-		console.log(data);
-	}
+    });
+    
+//     console.log(val); 
+    //return val;
 }
 
-ajax.onreadystatechange();
+ 
+// })();
+
