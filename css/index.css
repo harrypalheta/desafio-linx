@@ -3,7 +3,7 @@ ul {
     padding: 0;
     float: left;
     list-style: none;
-    width: 800px;
+    width: auto;
     border: 5px solid black;
     
 } 
@@ -11,10 +11,16 @@ ul {
 li {
     float: left;
     border: 2px solid red;
-    width: auto;
+    width: 150px;
+    vertical-align: middle;
+    height: auto;
 }
 
 p {
     padding: 0;
     margin: 0;
+}
+
+.preco,.precoAnterior,.pagamento, small {
+    color: red;
 }
