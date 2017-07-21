@@ -11,9 +11,22 @@ ul {
 li {
     float: left;
     border: 2px solid red;
-    width: 150px;
+    width: 200px;
     vertical-align: middle;
     height: auto;
+    margin: 2px;
+    padding: 4px;
+    
+}
+li:hover { 
+   
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d7eaf9+0,ffffff+100 */
+background: #d7eaf9; /* Old browsers */
+background: -moz-linear-gradient(top,  #d7eaf9 0%, #ffffff 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #d7eaf9 0%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #d7eaf9 0%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d7eaf9', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
 }
 
 p {
@@ -21,6 +34,53 @@ p {
     margin: 0;
 }
 
-.preco,.precoAnterior,.pagamento, small {
+.preco,.pagamento {
+    color: red;
+      font-weight: bold;
+   
+}
+
+.preco {
+     font-size: larger;
+}
+i.fa-chevron-circle-left {
+position: absolute;
+top: 50%;
+left: 16px;
+    
+}
+
+i.fa-chevron-circle-right {
+    position: absolute;  
+    top: 50%;
+    right: 16px;
+}
+
+div {
+      display: table;
+   width: 100%;
+    position: relative;
+    vertical-align: middle;
+    height: 400px;
+    border: 2px solid blue;
+    overflow: hidden;
+    display: inline-flex;
+}
+
+.imagem {
+    text-align: center;
+}
+img{
+    border: 2px solid #ccdfee;
+}
+.precoAnterior {
+    font-size: smaller;
+}
+span {
+    font-size: x-small;
+}
+
+.juros {
+    font-size: smaller;
     color: red;
 }

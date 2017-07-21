@@ -31,12 +31,12 @@ function X(val){
         // descrição
         descricao.innerHTML = ""; // limpa
         descricao.append(e.name); // insere
-        // preço
-        preco.innerHTML = "";   // limpa
-        preco.append(e.price);  // insere
-        // Preço Anterior
+        // Preço Anterior "De:"
         precoAnterior.innerHTML = ""; // limpa
-        precoAnterior.append(e.oldPrice); // insere
+        precoAnterior.insertAdjacentHTML('afterbegin',"<span>De:</span> "+e.oldPrice);
+        // preço "Por:"
+        preco.innerHTML = "";   // limpa
+        preco.insertAdjacentHTML('afterbegin',"<span>Por:</span> "+e.price);  // insere // insere
         // Formas de Pagamento
         pagamento.innerHTML = ""; //limpa
         pagamento.insertAdjacentHTML('afterbegin',e.productInfo.paymentConditions); // insere
@@ -48,6 +48,25 @@ function X(val){
     //return val;
 }
 
+var slideIndex = 1;
+showDivs(slideIndex);
+
+document.getElementById('left').addEventListener("click", function(n){
+    showDivs(slideIndex += -1);
+});
+document.getElementById('right').addEventListener("click", function(n){
+    showDivs(slideIndex += 1);
+});
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByTagName("li");
+  if (n > x.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "block";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}
  
 // })();
 
