@@ -2,26 +2,26 @@
  
 var data;
 
-var vitrine = document.getElementsByClassName("MultiCarousel");
-var product = document.querySelectorAll(".MultiCarousel-inner");
-//console.log(product);
+var vitrine = document.getElementsByClassName("Vitrine");
+var conteudo = document.querySelectorAll(".Vitrine-conteudo");
+//console.log(conteudo);
 
 function X(val){
     // elementos
-    var link = product[0].getElementsByClassName('imagem')[0].getElementsByTagName('a')[0];
-    var img = product[0].getElementsByClassName('imagem')[0].getElementsByTagName('a')[0].getElementsByTagName('img')[0];
-    var descricao = product[0].getElementsByClassName('descricao')[0];
-    var preco = product[0].getElementsByClassName('preco')[0];
-    var precoAnterior = product[0].getElementsByClassName('precoAnterior')[0];
-    var pagamento = product[0].getElementsByClassName('pagamento')[0];
+    var link = conteudo[0].getElementsByClassName('imagem')[0].getElementsByTagName('a')[0];
+    var img = conteudo[0].getElementsByClassName('imagem')[0].getElementsByTagName('a')[0].getElementsByTagName('img')[0];
+    var descricao = conteudo[0].getElementsByClassName('descricao')[0];
+    var preco = conteudo[0].getElementsByClassName('preco')[0];
+    var precoAnterior = conteudo[0].getElementsByClassName('precoAnterior')[0];
+    var pagamento = conteudo[0].getElementsByClassName('pagamento')[0];
     // Recommendation
     val.data.recommendation.forEach(function(e,i){
-//    console.log(product);
-        if (!product[i]){
+//    console.log(conteudo);
+        if (!conteudo[i]){
             var item = document.querySelectorAll(".item")[0];
 //            console.log(item);
             var cln = item.cloneNode(true);
-            product[0].appendChild(cln);
+            conteudo[0].appendChild(cln);
             
         }
     
@@ -46,71 +46,51 @@ function X(val){
 
 
     });
-    
-//     console.log(val); 
-    //return val;
+
 }
-//
-//var slideIndex = 1;
-//showDivs(slideIndex);
-//
-//document.getElementById('left').addEventListener("click", function(n){
-//    showDivs(slideIndex += -1);
-//});
-//document.getElementById('right').addEventListener("click", function(n){
-//    showDivs(slideIndex += 1);
-//});
-//function showDivs(n) {
-//  var i;
-//  var x = document.getElementsByTagName("li");
-//  if (n > x.length) {slideIndex = 1}    
-//  if (n < 1) {slideIndex = x.length}
-//  for (i = 0; i < x.length; i++) {
-//     x[i].style.display = "none";  
-//  }
-//  x[slideIndex-1].style.display = "inline-block";  
-//}
-// 
-//// })();
-//
+
 $(document).ready(function () {
-    var itemsMainDiv = ('.MultiCarousel');
-    var itemsDiv = ('.MultiCarousel-inner');
+
+    var itemsDiv = ('.Vitrine-conteudo');
     var itemWidth = "";
-
-    $('.leftLst, .rightLst').click(function () {
-        var condition = $(this).hasClass("leftLst");
-        if (condition)
-            click(0, this);
-        else
-            click(1, this)
+    var anterior = document.getElementsByClassName('anterior')[0];
+    var proximo = document.getElementsByClassName('proximo')[0];
+    // <<- 
+    anterior.addEventListener("click", function(n,e){
+        click(0, this); 
+    });
+    // ->>
+    proximo.addEventListener("click", function(n,e){
+        click(1, this);
     });
 
-    ResCarouselSize();
+    CalculaTamanho();
 
-
-
-
-    $(window).resize(function () {
-        ResCarouselSize();
+    window.addEventListener('resize', function(event) {
+        CalculaTamanho();
     });
 
-    //this function define the size of the items
-    function ResCarouselSize() {
+
+    // Essa função define o tamanho dos itens
+    function CalculaTamanho() {
         var incno = 0;
         var dataItems = ("data-items");
         var itemClass = ('.item');
         var id = 0;
         var btnParentSb = '';
         var itemsSplit = '';
-        var sampwidth = $(itemsMainDiv).width();
+
+        var sampwidth = vitrine[0].offsetWidth;
+        // classe de bloqueio do botão
+        var className = "over";
+        
         var bodyWidth = $('body').width();
         $(itemsDiv).each(function () {
             id = id + 1;
             var itemNumbers = $(this).find(itemClass).length;
             btnParentSb = $(this).parent().attr(dataItems);
             itemsSplit = btnParentSb.split(',');
-            $(this).parent().attr("id", "MultiCarousel" + id);
+            $(this).parent().attr("id", "Vitrine" + id);
 
 
             if (bodyWidth >= 1200) {
@@ -134,8 +114,17 @@ $(document).ready(function () {
                 $(this).outerWidth(itemWidth);
             });
 
-            $(".leftLst").addClass("over");
-            $(".rightLst").removeClass("over");
+           // Verifica se está encostado do lado esquerdo
+            if (anterior.classList)
+                anterior.classList.add(className)
+            else 
+                anterior.classList.remove(className)
+            // Verifica se está encostado do lado direito
+            if (proximo.classList)
+                proximo.classList.remove(className)
+            else 
+                proximo.classList.add(className)
+
 
         });
     }
@@ -143,11 +132,11 @@ $(document).ready(function () {
 
     //this function used to move the items
     function ResCarousel(e, el, s) {
-        var leftBtn = ('.leftLst');
-        var rightBtn = ('.rightLst');
+        var leftBtn = ('.anterior');
+        var rightBtn = ('.proximo');
         var translateXval = '';
         var divStyle = $(el + ' ' + itemsDiv).css('transform');
-        console.log(divStyle);
+     
         var values = divStyle.match(/-?[\d\.]+/g);
         var xds = Math.abs(values[4]);
         if (e == 0) {
