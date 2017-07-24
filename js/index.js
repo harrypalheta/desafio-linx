@@ -34,7 +34,9 @@ function X(val){
         descricao.append(e.name); // insere
         // Preço Anterior "De:"
         precoAnterior.innerHTML = ""; // limpa
-        precoAnterior.insertAdjacentHTML('afterbegin',"<span>De:</span> "+e.oldPrice);
+        if(e.oldPrice){
+            precoAnterior.insertAdjacentHTML('afterbegin',"<span>De:</span> "+e.oldPrice);
+        }
         // preço "Por:"
         preco.innerHTML = "";   // limpa
         preco.insertAdjacentHTML('afterbegin',"<span>Por:</span> "+e.price);  // insere // insere

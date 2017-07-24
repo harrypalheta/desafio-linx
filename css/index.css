@@ -1,7 +1,7 @@
 .MultiCarousel { 
     float: left; 
     overflow: hidden; 
-    padding: 15px; 
+    padding: 10px; 
     width: 100%; 
     position:relative; 
 }
@@ -13,10 +13,9 @@
     float: left;
 }
 .MultiCarousel .MultiCarousel-inner .item > div { 
-    text-align: center; 
+    text-align: left; 
     padding:10px; 
     margin:10px; 
-    background:#f1f1f1; 
     color:#666;
 }
 .MultiCarousel .leftLst, .MultiCarousel .rightLst { 
@@ -35,3 +34,48 @@
     background:#ccc; 
 }
 
+.item:hover { 
+   
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d7eaf9+0,ffffff+100 */
+background: #d7eaf9; /* Old browsers */
+background: -moz-linear-gradient(top,  #d7eaf9 0%, #ffffff 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #d7eaf9 0%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #d7eaf9 0%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d7eaf9', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
+}
+.descricao {
+   font-size: smaller;
+}
+.preco,.pagamento {
+    color: red;
+    font-weight: bold; 
+}
+
+.preco {
+    font-size: larger;
+}
+
+.imagem {
+    text-align: center;
+}
+img{
+    border: 2px solid #ccdfee;
+}
+.precoAnterior {
+    font-size: smaller;
+    margin-top: 5px;
+}
+span {
+    font-size: x-small;
+}
+
+.juros {
+    font-size: smaller;
+    color: red;
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}
