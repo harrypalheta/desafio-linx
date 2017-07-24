@@ -1,86 +1,37 @@
-ul {
-    margin: 0;
-    padding: 0;
+.MultiCarousel { 
+    float: left; 
+    overflow: hidden; 
+    padding: 15px; 
+    width: 100%; 
+    position:relative; 
+}
+.MultiCarousel .MultiCarousel-inner { 
+    transition: 1s ease all; 
+    float: left; 
+}
+.MultiCarousel .MultiCarousel-inner .item { 
     float: left;
-    list-style: none;
-    width: auto;
-    border: 5px solid black;
-    
-} 
-
-li {
-    float: left;
-    border: 2px solid red;
-    width: 200px;
-    vertical-align: middle;
-    height: auto;
-    margin: 2px;
-    padding: 4px;
-    
 }
-li:hover { 
-   
-/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d7eaf9+0,ffffff+100 */
-background: #d7eaf9; /* Old browsers */
-background: -moz-linear-gradient(top,  #d7eaf9 0%, #ffffff 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(top,  #d7eaf9 0%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to bottom,  #d7eaf9 0%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d7eaf9', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
-
+.MultiCarousel .MultiCarousel-inner .item > div { 
+    text-align: center; 
+    padding:10px; 
+    margin:10px; 
+    background:#f1f1f1; 
+    color:#666;
+}
+.MultiCarousel .leftLst, .MultiCarousel .rightLst { 
+    position:absolute; 
+    border-radius:50%;
+    top:calc(50% - 20px); 
+}
+.MultiCarousel .leftLst { 
+    left:0; 
+}
+.MultiCarousel .rightLst { 
+    right:0; 
+}
+.MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over { 
+    pointer-events: none; 
+    background:#ccc; 
 }
 
-p {
-    padding: 0;
-    margin: 0;
-}
-
-.preco,.pagamento {
-    color: red;
-      font-weight: bold;
-   
-}
-
-.preco {
-     font-size: larger;
-}
-i.fa-chevron-circle-left {
-position: absolute;
-top: 50%;
-left: 16px;
-    
-}
-
-i.fa-chevron-circle-right {
-    position: absolute;  
-    top: 50%;
-    right: 16px;
-}
-
-div {
-      display: table;
-   width: 100%;
-    position: relative;
-    vertical-align: middle;
-    height: 400px;
-    border: 2px solid blue;
-    overflow: hidden;
-    display: inline-flex;
-}
-
-.imagem {
-    text-align: center;
-}
-img{
-    border: 2px solid #ccdfee;
-}
-.precoAnterior {
-    font-size: smaller;
-}
-span {
-    font-size: x-small;
-}
-
-.juros {
-    font-size: smaller;
-    color: red;
-}
