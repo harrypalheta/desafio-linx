@@ -21,7 +21,7 @@ function X(val){
             var item = document.querySelectorAll(".item")[0];
 //            console.log(item);
             var cln = item.cloneNode(true);
-            vitrine[0].appendChild(cln);
+            product[0].appendChild(cln);
             
         }
     
