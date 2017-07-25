@@ -51,8 +51,8 @@ function X(val){
 
 $(document).ready(function () {
 
-    var itemsDiv = ('.Vitrine-conteudo');
-    var itemWidth = "";
+    var vitrineConteudo = document.getElementsByClassName('Vitrine-conteudo');
+    var itemLargura = "";
     var anterior = document.getElementsByClassName('anterior')[0];
     var proximo = document.getElementsByClassName('proximo')[0];
     // <<- 
@@ -73,46 +73,54 @@ $(document).ready(function () {
 
     // Essa função define o tamanho dos itens
     function CalculaTamanho() {
-        var incno = 0;
-        var dataItems = ("data-items");
+        var itensTela = 0;
         var itemClass = ('.item');
         var id = 0;
         var btnParentSb = '';
         var itemsSplit = '';
 
-        var sampwidth = vitrine[0].offsetWidth;
+        var TamanhoComBorda = vitrine[0].offsetWidth;
         // classe de bloqueio do botão
         var className = "over";
         
-        var bodyWidth = $('body').width();
-        $(itemsDiv).each(function () {
-            id = id + 1;
-            var itemNumbers = $(this).find(itemClass).length;
-            btnParentSb = $(this).parent().attr(dataItems);
-            itemsSplit = btnParentSb.split(',');
-            $(this).parent().attr("id", "Vitrine" + id);
+        var bodyWidth = document.body.offsetWidth;
+        var conteudoLista = Array.prototype.slice.call(conteudo);
 
+        conteudoLista.forEach(function(e){
+
+            id = id + 1;
+            var qtdeItens = e.children.length;
+
+            // elementos proximos ao botão
+            btnParentSb = e.parentElement.getAttribute("data-items");;
+
+            itemsSplit = btnParentSb.split(',');
+            e.parentElement.setAttribute("id", "Vitrine" + id);
 
             if (bodyWidth >= 1200) {
-                incno = itemsSplit[3];
-                itemWidth = sampwidth / incno;
+                itensTela = itemsSplit[3];
+                itemLargura = TamanhoComBorda / itensTela;
             }
             else if (bodyWidth >= 992) {
-                incno = itemsSplit[2];
-                itemWidth = sampwidth / incno;
+                itensTela = itemsSplit[2];
+                itemLargura = TamanhoComBorda / itensTela;
             }
             else if (bodyWidth >= 768) {
-                incno = itemsSplit[1];
-                itemWidth = sampwidth / incno;
+                itensTela = itemsSplit[1];
+                itemLargura = TamanhoComBorda / itensTela;
             }
             else {
-                incno = itemsSplit[0];
-                itemWidth = sampwidth / incno;
+                itensTela = itemsSplit[0];
+                itemLargura = TamanhoComBorda / itensTela;
             }
-            $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
-            $(this).find(itemClass).each(function () {
-                $(this).outerWidth(itemWidth);
-            });
+           // ajusta o tamanho do coteudo da vitrine
+           e.style.transform = "translateX(0px)";
+           e.style.width = (itemLargura * qtdeItens)+"px";
+
+           // reajustando o tamanho dos itens 
+           for (var j = 0; j < qtdeItens; j++){
+                conteudo[0].children[j].style.width = itemLargura+"px";
+            }
 
            // Verifica se está encostado do lado esquerdo
             if (anterior.classList)
@@ -125,7 +133,6 @@ $(document).ready(function () {
             else 
                 proximo.classList.add(className)
 
-
         });
     }
 
@@ -135,30 +142,30 @@ $(document).ready(function () {
         var leftBtn = ('.anterior');
         var rightBtn = ('.proximo');
         var translateXval = '';
-        var divStyle = $(el + ' ' + itemsDiv).css('transform');
+        var divStyle = $(el + ' ' + vitrineConteudo).css('transform');
      
         var values = divStyle.match(/-?[\d\.]+/g);
         var xds = Math.abs(values[4]);
         if (e == 0) {
-            translateXval = parseInt(xds) - parseInt(itemWidth * s);
+            translateXval = parseInt(xds) - parseInt(itemLargura * s);
             $(el + ' ' + rightBtn).removeClass("over");
 
-            if (translateXval <= itemWidth / 2) {
+            if (translateXval <= itemLargura / 2) {
                 translateXval = 0;
                 $(el + ' ' + leftBtn).addClass("over");
             }
         }
         else if (e == 1) {
-            var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
-            translateXval = parseInt(xds) + parseInt(itemWidth * s);
+            var itemsCondition = $(el).find(vitrineConteudo).width() - $(el).width();
+            translateXval = parseInt(xds) + parseInt(itemLargura * s);
             $(el + ' ' + leftBtn).removeClass("over");
 
-            if (translateXval >= itemsCondition - itemWidth / 2) {
+            if (translateXval >= itemsCondition - itemLargura / 2) {
                 translateXval = itemsCondition;
                 $(el + ' ' + rightBtn).addClass("over");
             }
         }
-        $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
+        $(el + ' ' + vitrineConteudo).css('transform', 'translateX(' + -translateXval + 'px)');
     }
 
     //It is used to get some elements from btn
