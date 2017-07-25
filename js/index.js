@@ -1,10 +1,7 @@
-//(function(){
- 
 var data;
 
 var vitrine = document.getElementsByClassName("Vitrine");
 var conteudo = document.querySelectorAll(".Vitrine-conteudo");
-//console.log(conteudo);
 
 function X(val){
     // elementos
@@ -16,10 +13,8 @@ function X(val){
     var pagamento = conteudo[0].getElementsByClassName('pagamento')[0];
     // Recommendation
     val.data.recommendation.forEach(function(e,i){
-//    console.log(conteudo);
         if (!conteudo[i]){
             var item = document.querySelectorAll(".item")[0];
-//            console.log(item);
             var cln = item.cloneNode(true);
             conteudo[0].appendChild(cln);
             
@@ -27,22 +22,33 @@ function X(val){
     
         // link    
         link.setAttribute("href", "http:" + e.detailUrl);
+        
         // imagem
         img.setAttribute("src", "http:" + e.imageName);
+        
         // descrição
         descricao.innerHTML = ""; // limpa
         descricao.append(e.name); // insere
+        
         // Preço Anterior "De:"
         precoAnterior.innerHTML = ""; // limpa
         if(e.oldPrice){
             precoAnterior.insertAdjacentHTML('afterbegin',"<span>De:</span> "+e.oldPrice);
         }
+        
         // preço "Por:"
         preco.innerHTML = "";   // limpa
-        preco.insertAdjacentHTML('afterbegin',"<span>Por:</span> "+e.price);  // insere // insere
+        preco.insertAdjacentHTML('afterbegin',"<span>Por:</span> "+e.price);  // insere
+        
         // Formas de Pagamento
         pagamento.innerHTML = ""; //limpa
-        pagamento.insertAdjacentHTML('afterbegin',e.productInfo.paymentConditions); // insere
+        // Formatar decimal da string
+        var regex = /[+-]?\d+(\.\d+)?/g;
+        var valorFormatado = e.productInfo.paymentConditions.match(regex).map(function(v) { 
+            if(/[0-9]+.[0-9]+/g.test(v))
+                return e.productInfo.paymentConditions.replace(v,"R$ "+parseFloat(v).toLocaleString('pt-BR',{minimumFractionDigits:2}));
+        });
+        pagamento.insertAdjacentHTML('afterbegin',valorFormatado[1]); // insere
 
 
     });
