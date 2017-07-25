@@ -49,12 +49,16 @@ function X(val){
 
 }
 
-$(document).ready(function () {
-
-    var vitrineConteudo = document.getElementsByClassName('Vitrine-conteudo');
+//$(document).ready(function () {
+    
+document.onreadystatechange = () => {
+  if (document.readyState === 'complete') {
+    // document ready
+      var vitrineConteudo = document.getElementsByClassName('Vitrine-conteudo');
     var itemLargura = "";
     var anterior = document.getElementsByClassName('anterior')[0];
     var proximo = document.getElementsByClassName('proximo')[0];
+    var className = "over";
     // <<- 
     anterior.addEventListener("click", function(){
         click(0, this); 
@@ -74,14 +78,13 @@ $(document).ready(function () {
     // Essa função define o tamanho dos itens
     function CalculaTamanho() {
         var itensTela = 0;
-        var itemClass = ('.item');
         var id = 0;
         var btnParentSb = '';
         var itemsSplit = '';
+        var itemClass = ('.item');
 
         var TamanhoComBorda = vitrine[0].offsetWidth;
         // classe de bloqueio do botão
-        var className = "over";
         
         var bodyWidth = document.body.offsetWidth;
         var conteudoLista = Array.prototype.slice.call(conteudo);
@@ -136,49 +139,50 @@ $(document).ready(function () {
         });
     }
 
+    
+
+
 
     // Essa função move os itens
     function MoveItens(e, el, s) {
-       
-        //console.log(s);
-        var leftBtn = ('.anterior');
-        var rightBtn = ('.proximo');
+
         var translateXval = '';
-       // console.log(el + ' ' + '.'+vitrineConteudo[0].className);
-        // #Vitrine1 Vitrine-conteudo   
-        var divStyle = $(el + ' .' + conteudo[0].className).css('transform');
-        console.log(divStyle);
-     
-        var values = divStyle.match(/-?[\d\.]+/g);
-        var xds = Math.abs(values[4]);
+        // valor absoluto o tamanho do item
+        var xds = Math.abs(el.style.transform.replace(/[^0-9]/g,''));   
+        
         if (e == 0) {
             translateXval = parseInt(xds) - parseInt(itemLargura * s);
-            $(el + ' ' + rightBtn).removeClass("over");
-
+              proximo.classList.remove(className);
+            // quando chegar no inicio, para e adiciona cor forte
             if (translateXval <= itemLargura / 2) {
                 translateXval = 0;
-                $(el + ' ' + leftBtn).addClass("over");
+                anterior.classList.add(className);
             }
         }
         else if (e == 1) {
-            var itemsCondition = $(el).find(vitrineConteudo).width() - $(el).width();
+            var itemsCondition = el.offsetWidth - el.parentElement.offsetWidth;
             translateXval = parseInt(xds) + parseInt(itemLargura * s);
-            $(el + ' ' + leftBtn).removeClass("over");
-
+            anterior.classList.remove(className);
+            // Quando chegar no final, para e adiciona cor forte
             if (translateXval >= itemsCondition - itemLargura / 2) {
                 translateXval = itemsCondition;
-                $(el + ' ' + rightBtn).addClass("over");
+                proximo.classList.add(className);
             }
         }
-        $(el + ' .' + conteudo[0].className).css('transform', 'translateX(' + -translateXval + 'px)');
+        // move
+        el.style.transform =  'translateX(' + -translateXval + 'px)';
+
     }
 
     // Essa função é para o uso do botão
     function click(ell, ee) {
-        var Parent = "#" + $(ee).parent().attr("id");
-        var slide = $(Parent).attr("data-slide");
-        console.log(slide);
-        MoveItens(ell, Parent, slide);
+        var el = conteudo[0];  
+        var slide = el.parentElement.getAttribute("data-slide");
+        MoveItens(ell, el, slide);
     }
+  }
+};
 
-});
+    
+
+//});
