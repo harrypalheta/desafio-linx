@@ -56,11 +56,11 @@ $(document).ready(function () {
     var anterior = document.getElementsByClassName('anterior')[0];
     var proximo = document.getElementsByClassName('proximo')[0];
     // <<- 
-    anterior.addEventListener("click", function(n,e){
+    anterior.addEventListener("click", function(){
         click(0, this); 
     });
     // ->>
-    proximo.addEventListener("click", function(n,e){
+    proximo.addEventListener("click", function(){
         click(1, this);
     });
 
@@ -137,12 +137,17 @@ $(document).ready(function () {
     }
 
 
-    //this function used to move the items
-    function ResCarousel(e, el, s) {
+    // Essa função move os itens
+    function MoveItens(e, el, s) {
+       
+        //console.log(s);
         var leftBtn = ('.anterior');
         var rightBtn = ('.proximo');
         var translateXval = '';
-        var divStyle = $(el + ' ' + vitrineConteudo).css('transform');
+       // console.log(el + ' ' + '.'+vitrineConteudo[0].className);
+        // #Vitrine1 Vitrine-conteudo   
+        var divStyle = $(el + ' .' + conteudo[0].className).css('transform');
+        console.log(divStyle);
      
         var values = divStyle.match(/-?[\d\.]+/g);
         var xds = Math.abs(values[4]);
@@ -165,14 +170,15 @@ $(document).ready(function () {
                 $(el + ' ' + rightBtn).addClass("over");
             }
         }
-        $(el + ' ' + vitrineConteudo).css('transform', 'translateX(' + -translateXval + 'px)');
+        $(el + ' .' + conteudo[0].className).css('transform', 'translateX(' + -translateXval + 'px)');
     }
 
-    //It is used to get some elements from btn
+    // Essa função é para o uso do botão
     function click(ell, ee) {
         var Parent = "#" + $(ee).parent().attr("id");
         var slide = $(Parent).attr("data-slide");
-        ResCarousel(ell, Parent, slide);
+        console.log(slide);
+        MoveItens(ell, Parent, slide);
     }
 
 });
